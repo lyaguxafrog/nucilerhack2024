@@ -4,3 +4,4 @@ django-filter
 graphene-django
 psycopg2
 gunicorn
+webauthn==2.1.0

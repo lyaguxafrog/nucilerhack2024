@@ -2,6 +2,7 @@
 
 from mnemonic import Mnemonic as mn
 
+from django.db.transaction import atomic
 from django.contrib.auth.models import User
 
 from config.settings import SEED_LANGUAGE
@@ -21,9 +22,11 @@ def gen_seed() -> str:
 
     return seed_generation
 
-
+@atomic
 def register_new_profile(email: str, seed: str) -> Profile:
 
-    user = User.objects.create(email=email, password=seed)
+    user = User.objects.create(email=email, username=email)
+    user.set_password(seed)
+    user.save()
 
     return Profile.objects.create(user=user)

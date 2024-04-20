@@ -6,6 +6,7 @@ from graphql.error import GraphQLError
 import graphene
 from graphene import relay, ObjectType
 from graphene_django.types import DjangoObjectType
+from users.models import KeyLogin
 
 from users.services import create_keylogin
 
@@ -15,7 +16,9 @@ class Input(graphene.InputObjectType):
     login = graphene.String(required=True)
 
 
-class KeyLogin(graphene.ObjectType):
+class KeyLogin(DjangoObjectType):
+    class Meta:
+        model = KeyLogin
     key = graphene.String()
     login = graphene.String()
 

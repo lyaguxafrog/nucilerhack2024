@@ -5,7 +5,7 @@
 
 ## Stack:
 * Django
-* DRF
+* GraphQL
 * PostgreSQL
 * Docker + Docker-compose
 * Gunicorn
@@ -58,13 +58,17 @@ app/
 ├── __init__.py
 ├── models
 │   └── __init__.py
-├── serializers
-│   └── __init__.py
-├── views
-│   └── __init__.py
+├── schema
+│   ├── __init__.py
+│   └── schema.py
 └── services
     └── __init__.py
 ```
+Dump graphql schema:
+```bash
+./manage.sh gql
+```
+
 
 Create superuser:
 ```bash
@@ -77,7 +81,7 @@ Open http://localhost:8000 you will see this and this is normall. There is no bu
 
 ![localhost](https://github.com/lyaguxafrog/python-backend-devcontainers/blob/release/docs/pics/localhost_8000.png?raw=true)
 
-Open http://localhost:8000/admin to see admin dashboard.
+Open http://localhost:8000/admin to see admin dashboard. Open http://localhost:8000/api to see graphql api sandbox.
 
 
 ### Deploy

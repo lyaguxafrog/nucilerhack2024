@@ -10,7 +10,7 @@ from graphene_django.types import DjangoObjectType
 from users.services import create_keylogin
 
 
-class KeyLoginInput(graphene.InputObjectType):
+class Input(graphene.InputObjectType):
     key = graphene.String(required=True)
     login = graphene.String(required=True)
 
@@ -35,7 +35,7 @@ class KeyLoginMutation(graphene.Mutation):
     """
 
     class Arguments:
-        keylogin_data = KeyLoginInput(required=True)
+        keylogin_data = Input(required=True)
 
     keylogin = graphene.Field(KeyLogin)
 

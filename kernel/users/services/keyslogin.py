@@ -23,7 +23,7 @@ def create_keylogin(login: str, key: str) -> KeyLogin:
             key=key,
         )
         return keylogin
-    except Exception as e:
+    except ValueError:
         # Log the error and re-raise
         print(f"Error creating KeyLogin: {e}")
         raise

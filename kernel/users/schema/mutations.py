@@ -11,11 +11,6 @@ from users.models import KeyLogin
 from users.services import create_keylogin
 
 
-class Input(graphene.InputObjectType):
-    key = graphene.String(required=True)
-    login = graphene.String(required=True)
-
-
 class KeyLogin(DjangoObjectType):
     class Meta:
         model = KeyLogin
@@ -24,6 +19,10 @@ class KeyLogin(DjangoObjectType):
 
 
 class KeyLoginMutation(graphene.Mutation):
+
+    class Input(graphene.InputObjectType):
+        key = graphene.String(required=True)
+        login = graphene.String(required=True)
     """
     Мутация для добавления ключа для сервиса.
 

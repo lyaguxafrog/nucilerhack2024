@@ -2,6 +2,7 @@
 
 from django.db import models
 
+from users.managers import CustomUserManager as ProfileManager
 
 class Profile(models.Model):
 
@@ -13,3 +14,5 @@ class Profile(models.Model):
     seed = models.CharField(
         verbose_name='Сид для входа'
     )
+
+    objects = ProfileManager()

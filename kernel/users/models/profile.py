@@ -11,8 +11,4 @@ class Profile(models.Model):
         verbose_name='Ссылка на модель user в django'
     )
 
-    seed = models.CharField(
-        verbose_name='Сид для входа'
-    )
-
     objects = ProfileManager()

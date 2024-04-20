@@ -3,12 +3,13 @@
 from django.db import models
 
 
-class Service(models.Model):
+class KeyLogin(models.Model):
 
-    service_url = models.URLField(
+    login = models.CharField(
         verbose_name="URL сервиса, в который мы логинимся"
     )
 
-    login = models.CharField(
-        verbose_name="Логин пользователя"
+    key = models.CharField(
+        verbose_name="Открытый ключ сервиса",
+        unique=True
     )

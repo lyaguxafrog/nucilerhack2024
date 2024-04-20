@@ -3,6 +3,8 @@
 import graphene
 from graphene import ObjectType, Schema
 
+from users.schema import Mutation as UserMutation
+
 
 class Query(ObjectType):
     hello = graphene.String()
@@ -11,11 +13,11 @@ class Query(ObjectType):
         return 'world!'
 
 
-# class Mutation(ObjectType):
-#     pass
+class Mutation(
+    UserMutation,
+    ObjectType,
+): pass
 
 
-schema = Schema(
-    query=Query,
-    # mutation=Mutation,
-)
+
+schema = Schema(mutation=Mutation, query=Query)

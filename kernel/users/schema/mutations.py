@@ -19,10 +19,6 @@ class KeyLogin(DjangoObjectType):
 
 
 class KeyLoginMutation(graphene.Mutation):
-
-    class Input(graphene.InputObjectType):
-        key = graphene.String(required=True)
-        login = graphene.String(required=True)
     """
     Мутация для добавления ключа для сервиса.
 
@@ -35,16 +31,22 @@ class KeyLoginMutation(graphene.Mutation):
     }
 
     """
+    class Input:
+        key = graphene.String(required=True)
+        login = graphene.String(required=True)
 
-    class Arguments:
-        keylogin_data = Input(required=True)
+    # class Arguments:
+    #     keylogin_data = Input(required=True)
 
     keylogin = graphene.Field(KeyLogin)
 
-    def mutate(root, info, keylogin_data=None):
+    def mutate(root: Any,
+        info: graphene.ResolveInfo,
+        **input: Dict[str, Any]):
+
         keylogin = create_keylogin(
-            login=keylogin_data.login,
-            key=keylogin_data.key
+            key=input['key'],
+            login=input['login']
         )
         ok = True
         return KeyLoginMutation(keylogin=keylogin)

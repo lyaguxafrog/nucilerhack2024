@@ -4,7 +4,6 @@ import graphene
 from graphene import ObjectType, Schema
 import graphql_jwt
 
-
 from users.schema import Mutation as UserMutation
 
 

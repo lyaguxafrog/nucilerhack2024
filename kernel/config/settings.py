@@ -111,6 +111,8 @@ GRAPHENE = {
     "SCHEMA": "config.schema.schema"
 }
 
+SEED_LANGUAGE = "english"
+
 try:
     from .local_settings import *
 except ImportError:

@@ -1,9 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { RouterPaths } from '../consts/router-paths';
 import { LoginPage } from './login';
 import { NotFoundPage } from './not-found';
 import { Footer } from './footer';
-import { AccsessGranded } from './accgranded';
 
 export function App ():JSX.Element {
   return (
@@ -11,14 +9,10 @@ export function App ():JSX.Element {
       <div className='wrapper'>
       <Routes>
         <Route
-          path={RouterPaths.root()}
+          path={'/'}
           element={<LoginPage/>}
         />
-        <Route
-          path={"/granded"}
-          element={<AccsessGranded/>}
-        />
-        <Route path={RouterPaths.notFound()} element={<NotFoundPage/>}/>
+        <Route path={'*'} element={<NotFoundPage/>}/>
       </Routes>
       </div>
       <Footer/>

@@ -61,3 +61,23 @@ def get_all_keys(user: Profile):
 
     keys = PrivateKeys.objects.select_related('user').filter(user=user)
     return keys
+
+
+@atomic
+def delete_key(user: Profile, service: str) -> bool:
+    """
+    Сервис на удаление ключа пользователя
+
+    :param user: Объект профиля пользователя
+    :param service: Сервис, ключи которого нужно удалить
+
+    :returns: Bool значение об успешночти операции
+    """
+
+    try:
+        key_to_delete = PrivateKeys.objects.get(user=user, service=service)
+        key_to_delete.delete()
+        return True
+
+    except PrivateKeys.DoesNotExist:
+        return False

@@ -18,6 +18,5 @@ class PrivateKeys(models.Model):
     )
 
     private_key = models.CharField(
-        verbose_name='Зашифрованный приватный ключ',
-        null=True, blank=True
+        verbose_name='Зашифрованный приватный ключ'
     )

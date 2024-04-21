@@ -6,7 +6,7 @@ from graphql.error import GraphQLError
 import graphene
 from graphene import relay, ObjectType
 from graphene_django.types import DjangoObjectType
-from users.models import KeyLogin, Profile
+from users.models import Profile
 
 from users.services import (register_new_profile as reg,
                             gen_seed as seed,

@@ -9,10 +9,10 @@ from users.models import Profile
 
 @atomic
 def get_keys(user: Profile,
-            service: str,
-            public_key: str,
-            private_key: str
-    ) -> PrivateKeys:
+             service: str,
+             public_key: str,
+             private_key: str
+             ) -> PrivateKeys:
     """
     Сервис для сохранения ключа
 
@@ -24,8 +24,7 @@ def get_keys(user: Profile,
     :returns: Новый объект приватных ключей
     """
 
-
-    keys = PrivateKeys.objects.create(user, service, public_key, private_key)
+    keys = PrivateKeys.objects.create(user=user, service=service, public_key=public_key, private_key=private_key)
 
     return keys
 

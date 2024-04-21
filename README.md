@@ -1,14 +1,25 @@
 # WebAUF
 
-## About
-<!-- Yor description here -->
+![qr](docs/QR.png)
 
-## Stack:
+# Описание
+
+![ph1](docs/ph1.jpg)
+![ph2](docs/ph2.jpg)
+![ph3](docs/ph3.jpg)
+
+[Презентация](https://docs.google.com/presentation/d/11jLLNxYP66JuzLdZFsEfOmXil3LCTsE58ldrIdV-BcE/edit?usp=sharing)
+
+## Стек-технологий
+* Python
 * Django
 * GraphQL
 * PostgreSQL
 * Docker + Docker-compose
 * Gunicorn
+* TypeScript
+* React
+* Nginx
 ---
 
 
@@ -85,19 +96,21 @@ h
 Изменений в каждом mr должно быть не более 500 строк (добавление и удаление в сумме).
 
 
-## Develop:
+## Разработка:
 
-To work with the project, you need to install [vscode](https://code.visualstudio.com/) and [vscode-remote-containers](https://code.visualstudio.com/docs/remote/containers).
+### Backend
 
-### Config
-To generate a config:
+Для разработки проекта установите [vscode](https://code.visualstudio.com/) и [vscode-remote-containers](https://code.visualstudio.com/docs/remote/containers).
+
+### Конфигурация проекта
+Для генерации проекта:
 ```bash
 ./deploy.sh config
 ```
 
 ### Environment variables
- * `SECRET_KEY` - Django secret key. For generate new once, you can use service https://djecrety.ir/
- * `DEBUG` - Flag to tell django work on debug mode or not.
+ * `SECRET_KEY` - Секретный ключ джанго, для генерации используйте: https://djecrety.ir/
+ * `DEBUG` - Флаг для дебаша
 * `DB_NAME` - PostgreSQL db name.
 * `DB_USER` - PostgreSQL db user.
 * `DB_PASSWORD` - PostgeSQL db password.
@@ -105,26 +118,17 @@ To generate a config:
 
 ### Codding
 
-For developing backend with django, open django project in vscode and reopen it in container.
+Для выполнения миграций:
 
-
-```bash
-code kernel
-```
-
-![reopen](https://github.com/lyaguxafrog/python-backend-devcontainers/blob/release/docs/pics/reopen.png?raw=true)
-
-For migrate:
 ```bash
 ./manage.sh migrate
 ```
 
-For create new django app:
+Чтобы создать django-приложение:
 ```bash
 ./manage.sh app
 ```
-
-It will create new django app with this structure:
+Команда создаст приложение со следущей структурой:
 ```
 app/
 ├── admin
@@ -139,33 +143,45 @@ app/
 └── services
     └── __init__.py
 ```
-Dump graphql schema:
+Дампнуть GQL-Схему:
 ```bash
 ./manage.sh gql
 ```
 
 
-Create superuser:
+Создать суперюзера:
 ```bash
 ./manage.sh su
 ```
 
-To debug django code use cmd+F5
 
-Open http://localhost:8000 you will see this and this is normall. There is no builded webclient.
-
-![localhost](https://github.com/lyaguxafrog/python-backend-devcontainers/blob/release/docs/pics/localhost_8000.png?raw=true)
-
-Open http://localhost:8000/admin to see admin dashboard. Open http://localhost:8000/api to see graphql api sandbox.
+Зайдите на  http://localhost:8000/admin  для админ панели. Откройте http://localhost:8000/api чтобы перейти на graphql api sandbox.
 
 
 ### Deploy
-For deploy run:
+Для деплоя нужно:
+
+1. Создать конфиг:
 ```bash
-deploy.sh
+./deplo.sh config
 ```
 
-On local machine app will running on http://0.0.0.0/
+2. Собрать фронтенд:
+```bash
+./deploy.sh build
+```
+
+3. Скачать TLS-сертификат:
+```bash
+./deploy.sh ssl
+```
+
+4. Деплой!
+```bash
+./deploy.sh
+```
+
+на локальной машине оно запустится на  http://0.0.0.0/
 
 
-&copy; Gen by [PBD](https://lyaguxafrog/python-backend-devcontainers) with 💚
+&copy; Gen by [PBD](https://github.com/lyaguxafrog/python-backend-devcontainers) with 💚

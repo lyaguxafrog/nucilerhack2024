@@ -29,6 +29,10 @@ if [[ $1 = 'build' ]]; then
     exit 0
 fi
 
+rm -rf docs/
+rm -rf kernel/.devcontainer/
+rm -rf client/.devcontainer/
+
 docker-compose up -d --build nginx
 echo "Deployed with <3 by PBD"
 

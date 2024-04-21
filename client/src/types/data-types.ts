@@ -1,55 +1,41 @@
-import { ProductCategory, ProductLevel, ProductType } from '../consts/enums';
-import { store } from '../store';
-import { formatProductData, formatReviewData } from '../utils/data-formatting';
+import { store } from "../store";
 
-export type ProductData = {
-    id: number;
-    name: string;
-    vendorCode: string;
-    type: ProductType;
-    category: ProductCategory;
-    description: string;
-    level: ProductLevel;
-    price: number;
-    rating: number;
-    reviewCount: number;
-    previewImg: string;
-    previewImg2x: string;
-    previewImgWebp: string;
-    previewImgWebp2x: string;
+export type VerifyedTokenData = {
+  username: string;
+  exp: number;
+  origIat: number;
+}
+export type RegisterInput = {
+  email: string;
+  seed: string;
+}
+export type TokenAuthInput = {
+  username: string;
+  password: string;
+}
+export type TokenAuthOutput = {
+  payload: string;
+  refreshExpiresIn: number;
+  token: string;
+}
+export type SaveKeysInput = {
+  privateKey: string;
+  publicKey: string;
+  service: string;
+}
+export type SaveKeysOutput = {
+  success: boolean
+}
+export type SyncPrivateKeyInput = {
+  service: string;
+}
+export type SyncPrivateKeyOutput = {
+  success: boolean;
+  privateKey: string;
 }
 
-export type CatalogCardData = (ReturnType<typeof formatProductData>)
-export type ReviewtData = (ReturnType<typeof formatReviewData>)
-
-export type PromoData = {
-  id: number;
-  name: string;
-  previewImg: string;
-  previewImg2x: string;
-  previewImgWebp: string;
-  previewImgWebp2x: string;
-}
-
-export type ReviewData = {
-  id: string;
-  createAt: string;
-  cameraId: number;
-  userName: string;
-  advantage: string;
-  disadvantage: string;
-  review: string;
-  rating: number;
-}
-export type ReviewPostData = {
-  cameraId: number;
-  userName: string;
-  advantage: string;
-  disadvantage: string;
-  review: string;
-  rating: number;
-}
+export type Token = string;
 
 export type State = ReturnType<typeof store.getState>;
-export type AppDispatch = typeof store.dispatch;
 
+export type AppDispatch = typeof store.dispatch;

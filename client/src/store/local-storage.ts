@@ -1,4 +1,3 @@
-import { BasketData } from '../types/state-types';
 
 export const Basket = new class {
 
@@ -114,24 +113,5 @@ export const Basket = new class {
     localStorage.removeItem(this._discountKey);
     ///
     this._updatePromo();
-  }
-
-  getBasketData() {
-    const res: BasketData = {
-      camerasIds: [],
-      coupon: null
-    };
-    for (let i = 0; i < localStorage.length; i++) {
-      const storageKey = Number(localStorage.key(i));
-      if (storageKey) {
-        for (let j = 0; j < Number(localStorage.getItem(localStorage.key(i) as string)); j++) {
-          res.camerasIds.push(storageKey);
-        }
-      }
-    } // add cameraIds
-    if (localStorage.getItem(this._discountKey) && localStorage.getItem(this._promoKey)) {
-      res.coupon = localStorage.getItem(this._promoKey) as string;
-    } // add coupon if exists
-    return res;
   }
 };

@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { allKeys, genSeed, setUsername } from '../actions';
+import { allKeys, genSeed, setUsername, tokenGet } from '../actions';
 
 export const dataSlice = createSlice({
   name: 'DATA',
   initialState: {
     username: '',
     seed: '',
+    tokenGet: false,
     keysData: {
       keys: [{
         id: '',
@@ -26,6 +27,9 @@ export const dataSlice = createSlice({
       })
       .addCase(allKeys.fulfilled, (state, action) => {
         state.keysData = action.payload
+      })
+      .addCase(tokenGet, (state, action) => {
+        state.tokenGet = action.payload
       })
   },
 });

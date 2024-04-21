@@ -17,4 +17,5 @@ jobs:
           script: |
             cd passal
             git pull
+            sleep 2
             ./deploy.sh

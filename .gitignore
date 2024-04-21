@@ -3,3 +3,5 @@
 .env
 
 kernel/config/__pycache__/*
+letsencrypt
+db/

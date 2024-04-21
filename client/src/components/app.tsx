@@ -4,7 +4,8 @@ import { Footer } from './footer';
 import { Keys } from './keyspage';
 import { Start } from './start';
 import { Register } from './register';
-import { Login } from './login';
+import { Words } from './words';
+
 
 export function App ():JSX.Element {
   return (
@@ -25,8 +26,8 @@ export function App ():JSX.Element {
           element={<Register/>}
         />
         <Route
-          path={'/login'}
-          element={<Login/>}
+          path={'/words'}
+          element={<Words/>}
         />
       </Routes>
       </div>

@@ -1,7 +1,8 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { LoginPage } from './login';
 import { NotFoundPage } from './not-found';
 import { Footer } from './footer';
+import { Login } from './login';
+import { Keys } from './keyspage';
 
 export function App ():JSX.Element {
   return (
@@ -10,7 +11,11 @@ export function App ():JSX.Element {
       <Routes>
         <Route
           path={'/'}
-          element={<LoginPage/>}
+          element={<Login/>}
+        />
+        <Route
+          path={'/keys'}
+          element={<Keys/>}
         />
         <Route path={'*'} element={<NotFoundPage/>}/>
       </Routes>

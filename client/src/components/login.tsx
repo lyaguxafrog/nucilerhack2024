@@ -1,5 +1,5 @@
 
-export const LoginPage = () => {
+export const Login = () => {
   return (
     <section className="login">
       <h2 className="loginTitle">WebAuthn</h2>

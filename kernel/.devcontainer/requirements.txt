@@ -6,3 +6,4 @@ psycopg2==2.9.9
 gunicorn==22.0.0
 
 mnemonic==0.21
+django-graphql-jwt==0.4.0

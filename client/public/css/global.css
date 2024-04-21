@@ -42,7 +42,12 @@ body {
   padding: 4px 7px;
   box-shadow: -3px -3px 0 0 #3E4147 inset, 3px 3px 0 0 #1C1D20 inset;
 }
-.formButton {
+.buttonStartRow {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+.button {
   background-color: #2B5134;
   border: 2px solid #CCD00A;
   width: 155px;
@@ -50,7 +55,7 @@ body {
   cursor: pointer;
   position: relative;
 }
-.formButton::after {
+.button::after {
   position: absolute;
   top: -6px;
   right: -6px;
@@ -66,11 +71,11 @@ body {
   color: #E7E7E7;
   cursor: pointer;
 }
-.formButton:hover::after {
+.button:hover::after {
   top: -5px;
   right: -5px;
 }
-.formButton:active::after {
+.button:active::after {
   top: -4px;
   right: -4px;
 }
@@ -87,4 +92,133 @@ body {
 .poweredBy {
   font-size: 17px;
   font-weight: 700;
+}
+.yellowLine{
+  min-width: 20vw;
+  height: 2px;
+  background: #CCD00A;
+}
+.keysTable{
+  list-style-type: none;
+  padding: 0;
+  padding-left: 10px;
+}
+.removeButton{
+  background: none;
+  border: none;
+  padding-left: 7px;
+  cursor: pointer;
+}
+.addButton{
+  color: #E6E6E6;
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+.keysTitle{
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+.whiteLine{
+  width: 60px;
+  height: 1px;
+  background: #FFFFFF;
+  margin-left: 10px;
+  margin-top: 2px;
+}
+ul li {
+  margin-bottom: 10px; /* Добавляет пространство снизу каждого элемента списка */
+} 
+li:hover {
+  color: #CCD00A;
+ }
+.addButton:hover {
+  color: #CCD00A;
+}
+.wordRow{
+  align-items: center;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 3px;
+  color: #CCD00A;
+  border: 2px solid #CCD00A;
+  padding: 0 20px;
+}
+.word{
+  color: #FFFFFF;
+}
+.title-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.registerTitle {
+  font-size: 32px;
+  display: block;
+  width: 50%;
+  color: #E7E7E7;
+
+}
+
+.buttonOK{
+  
+  margin-top: 21px;
+  height: 34px;
+  width: 74px;
+}
+
+.buttonOK::after{
+  
+  content:"OK";
+  height: 34px;
+  width: 74px;
+  align-items: center;
+}
+
+.buttonCopy{
+  height: 31px;
+  width: 34px;
+  margin-left: 7px;
+}
+
+.buttonCopy::after{
+  content: "";
+  margin-left: 7px;
+  display: block;
+  width: 34px;
+  height: 31px;
+  background-image: url("/img/copy.svg");
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.buttonRefr{
+  height: 34px;
+  width: 34px;
+  margin-left: 15px;
+  margin-top: 21px;
+  
+}
+
+.buttonRefr::after{
+  content: "";
+  margin-left: 7px;
+  display: block;
+  width: 34px;
+  height: 34px;
+  background-image: url("/img/refr.svg");
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.register{
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
 }

@@ -3,11 +3,11 @@
 from graphene import ObjectType
 from graphene_django.types import DjangoObjectType
 
-from .mutations import Mutations as KeyLoginMutation
+from .mutations import Mutations as UserMutations
 from .queries import Query as SeedQuery
 
 class Mutation(
-    KeyLoginMutation,
+    UserMutations,
     ObjectType,
 ):
     pass

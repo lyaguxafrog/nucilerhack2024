@@ -59,9 +59,10 @@ class SyncPrivateKeyMutation(graphene.Mutation):
     @login_required
     def mutate(self, info, service):
         user = info.context.user
+        profile = Profile.objects.get(user=user)
         print(user)
         try:
-            private_key = sharek(user, service)
+            private_key = sharek(profile, service)
             return SyncPrivateKeyMutation(success=True, private_key=private_key)
         except ObjectDoesNotExist:
             return SyncPrivateKeyMutation(success=False, private_key=None)

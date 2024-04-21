@@ -30,6 +30,13 @@ class PrivateKeyNode(DjangoObjectType):
 
 
 class SaveKeysMutation(graphene.Mutation):
+    """
+    Пример хедера
+
+    {
+        "Authorization":"JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZqZGRzZGZkZHNmamZkZmhoQGZramRmaWQuY29tIiwiZXhwIjoxNzEzNjc1MTk4LCJvcmlnSWF0IjoxNzEzNjc0ODk4fQ.XbobS5KWtinx6gdA1a_QyNFpWneN0OG4PehfeGOys04"
+    }
+    """
     class Arguments:
         service = graphene.String(required=True)
         public_key = graphene.String(required=True)
@@ -50,6 +57,13 @@ class SaveKeysMutation(graphene.Mutation):
 
 
 class SyncPrivateKeyMutation(graphene.Mutation):
+    """
+    Пример хедера
+
+    {
+        "Authorization":"JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImZqZGRzZGZkZHNmamZkZmhoQGZramRmaWQuY29tIiwiZXhwIjoxNzEzNjc1MTk4LCJvcmlnSWF0IjoxNzEzNjc0ODk4fQ.XbobS5KWtinx6gdA1a_QyNFpWneN0OG4PehfeGOys04"
+    }
+    """
     class Arguments:
         service = graphene.String(required=True)
 

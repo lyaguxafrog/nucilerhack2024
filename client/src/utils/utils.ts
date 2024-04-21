@@ -11,7 +11,6 @@ const keys = await crypto.subtle.generateKey(
     ["sign", "verify"],
   );
 
-console.log(keys)
 
 // Export public key
 const publicKeyExported = await crypto.subtle.exportKey("spki", keys.publicKey);
@@ -21,8 +20,6 @@ const publicKeyString = arrayBufferToBase64(publicKeyExported);
 const privateKeyExported = await crypto.subtle.exportKey("pkcs8", keys.privateKey);
 const privateKeyString = arrayBufferToBase64(privateKeyExported);
 
-console.log("Public Key:", publicKeyString);
-console.log("Private Key:", privateKeyString);
 
 // Function to convert array buffer to base64
 function arrayBufferToBase64(buffer) {

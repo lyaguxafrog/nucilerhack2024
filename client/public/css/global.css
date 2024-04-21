@@ -228,6 +228,11 @@ li:hover {
   display: flex;
   flex-direction: column;
   align-items: center;
+}
+
+.buttonRegister::after{
+  content: 'register';
+=======
   gap: 10px;
   text-align: center;
   margin-top: -100px;
@@ -242,4 +247,5 @@ li:hover {
   padding: 0 20px;
   margin-bottom: 15px;
   height: 60px;
+
 }

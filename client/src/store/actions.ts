@@ -1,6 +1,6 @@
-import { createAsyncThunk } from '@reduxjs/toolkit';
+import { createAction, createAsyncThunk } from '@reduxjs/toolkit';
 import { GraphQLClient } from 'graphql-request';
-import { AppDispatch, RegisterInput, SaveKeysInput, SaveKeysOutput, State, SyncPrivateKeyInput, SyncPrivateKeyOutput, Token, TokenAuthInput, TokenAuthOutput, VerifyedTokenData } from '../types/data-types';
+import { AllKeys, AppDispatch, RegisterInput, SaveKeysInput, SaveKeysOutput, State, SyncPrivateKeyInput, SyncPrivateKeyOutput, Token, TokenAuthInput, TokenAuthOutput, VerifyedTokenData } from '../types/data-types';
 
 type ThunkConfig = {
   dispatch: AppDispatch;
@@ -8,17 +8,16 @@ type ThunkConfig = {
 }
 
 let headers = {
-  Authorization: `Bearer Null`,
+  Authorization: `JWT eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFzZGFhc2FzZGFzZHNkMTIzMSIsImV4cCI6MTcxMzY4OTM4Miwib3JpZ0lhdCI6MTcxMzY4OTA4Mn0.qjNJkA4PBVvHgYOZmDZZztdwrz1TsjYatixtcbUDzs4`,
  };
 let endpoint = new GraphQLClient("https://nuclier.makridenko.ru/api/");
 
 async function updateGraphqlData(jwtToken: string) {
   headers = {
-    Authorization: `Bearer ${jwtToken}`
+    Authorization: `JWT ${jwtToken}`
   }
 }
 
-//export const setTimerSeconds = createAction<number>('setTimerSeconds');
 
 export const genSeed = createAsyncThunk(
   "GEN_SEED",
@@ -29,7 +28,7 @@ export const genSeed = createAsyncThunk(
           genSeed
         }
       `;
-      const payload = await endpoint.request(query, {}, headers);
+      const payload = await endpoint.request(query, {}, headers) as string;
       console.log(payload);
       return payload;
     } catch (err) {
@@ -143,3 +142,51 @@ export const syncPrivateKey = createAsyncThunk<SyncPrivateKeyOutput, {syncPrivat
     }
   }
 );
+
+export const allKeys = createAsyncThunk(
+  "ALL_KEYS",
+  async (_, { rejectWithValue }) => {
+    try {
+      const mutation = `
+        mutation {
+          allKeys {
+            success
+            keys {
+              id
+              service
+            }
+          }
+        }
+      `;
+      const payload = await endpoint.request(mutation, {}, headers) as AllKeys;
+      console.log(payload);
+      return payload;
+    } catch (err) {
+      console.log('err');
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const deleteKey = createAsyncThunk<{success: boolean}, {syncPrivateKeyInput: { service: string }}, ThunkConfig>(
+  "DELETE_KEY",
+  async ({ syncPrivateKeyInput }, { rejectWithValue }) => {
+    try {
+      const query = `
+        mutation {
+          deleteKey(service: "${syncPrivateKeyInput.service}")
+          { success }
+        }
+      `;
+      const token = await endpoint.request<{success: boolean}>(query, {}, headers);
+      console.log(token);
+      return token;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const setUsername = createAction<string>('setUsername');
+export const setKeysData = createAction<AllKeys>('');
+

@@ -23,6 +23,7 @@ INSTALLED_APPS = [
 
     # APPS:
     'users',
+    'cloud',
 
 ]
 
@@ -107,8 +108,20 @@ STATICFILES_DIRS = [
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
+AUTHENTICATION_BACKENDS = [
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    "django.contrib.auth.backends.ModelBackend",
+]
+
 GRAPHENE = {
-    "SCHEMA": "config.schema.schema"
+    "SCHEMA": "config.schema.schema",
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
+GRAPHQL_JWT = {
+    "JWT_ALLOW_ARGUMENT": True,
 }
 
 SEED_LANGUAGE = "english"

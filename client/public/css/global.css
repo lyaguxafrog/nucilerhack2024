@@ -140,3 +140,85 @@ li:hover {
 .addButton:hover {
   color: #CCD00A;
 }
+.wordRow{
+  align-items: center;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 3px;
+  color: #CCD00A;
+  border: 2px solid #CCD00A;
+  padding: 0 20px;
+}
+.word{
+  color: #FFFFFF;
+}
+.title-container{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.registerTitle {
+  font-size: 32px;
+  display: block;
+  width: 50%;
+  color: #E7E7E7;
+
+}
+
+.buttonOK{
+  
+  margin-top: 21px;
+  height: 34px;
+  width: 74px;
+}
+
+.buttonOK::after{
+  
+  content:"OK";
+  height: 34px;
+  width: 74px;
+  align-items: center;
+}
+
+.buttonCopy{
+  height: 31px;
+  width: 34px;
+  margin-left: 7px;
+}
+
+.buttonCopy::after{
+  content: "";
+  margin-left: 7px;
+  display: block;
+  width: 34px;
+  height: 31px;
+  background-image: url("/img/copy.svg");
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.buttonRefr{
+  height: 34px;
+  width: 34px;
+  margin-left: 15px;
+  margin-top: 21px;
+  
+}
+
+.buttonRefr::after{
+  content: "";
+  margin-left: 7px;
+  display: block;
+  width: 34px;
+  height: 34px;
+  background-image: url("/img/refr.svg");
+  background-size: 16px 16px;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+.register{
+  display: flex;
+  text-align: center;
+  flex-direction: column;
+  align-items: center;
+}

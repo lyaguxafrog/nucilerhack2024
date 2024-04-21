@@ -12,7 +12,7 @@ if [[ $1 = 'config' ]]; then
     exit 0
 fi
 
-if [[$1 = 'ssl' ]]; then
+if [[ $1 = 'ssl' ]]; then
     wget https://acme-v02.api.letsencrypt.org/directory
     mv directory letsencrypt
     exit 0

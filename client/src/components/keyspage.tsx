@@ -24,7 +24,7 @@ export const Keys = () => {
         </ul>
         <button className="addButton">
           add key
-          <img src="/img/add.svg" />
+          <img src="/img/add.svg"/>
         </button>
         <div className="whiteLine"></div>
       </section>

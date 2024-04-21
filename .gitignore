@@ -1,3 +1,7 @@
-__pycache__/
+*__pycache__/
 *.log
 .env
+
+kernel/config/__pycache__/*
+letsencrypt
+db/

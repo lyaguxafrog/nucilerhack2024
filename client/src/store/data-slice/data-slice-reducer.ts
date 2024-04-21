@@ -1,11 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { ReducerNameSpaces } from '../../consts/enums';
-import { dataInitialState } from '../../consts/global';
 
 
 export const dataSlice = createSlice({
-  name: ReducerNameSpaces.data,
-  initialState: dataInitialState,
+  name: 'DATA',
+  initialState: '',
   reducers: {
   },
   extraReducers(builder) {

@@ -1,13 +1,22 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import { GraphQLClient } from 'graphql-request';
-import { AppDispatch, RegisterInput, State, Token } from '../types/data-types';
+import { AppDispatch, RegisterInput, SaveKeysInput, SaveKeysOutput, State, SyncPrivateKeyInput, SyncPrivateKeyOutput, Token, TokenAuthInput, TokenAuthOutput, VerifyedTokenData } from '../types/data-types';
 
 type ThunkConfig = {
   dispatch: AppDispatch;
   state: State;
 }
 
-const endpoint = new GraphQLClient("https://nuclier.makridenko.ru/api/");
+let headers = {
+  Authorization: `Bearer Null`,
+ };
+let endpoint = new GraphQLClient("https://nuclier.makridenko.ru/api/");
+
+async function updateGraphqlData(jwtToken: string) {
+  headers = {
+    Authorization: `Bearer ${jwtToken}`
+  }
+}
 
 //export const setTimerSeconds = createAction<number>('setTimerSeconds');
 
@@ -20,8 +29,7 @@ export const genSeed = createAsyncThunk(
           genSeed
         }
       `;
-      const payload = await endpoint.request(query);
-
+      const payload = await endpoint.request(query, {}, headers);
       console.log(payload);
       return payload;
     } catch (err) {
@@ -45,7 +53,26 @@ export const registerUser = createAsyncThunk<Token, {registerInput: RegisterInpu
           }
         }
       `;
-      const data = await endpoint.request<Token>(query);
+      const token = await endpoint.request<Token>(query, {}, headers);
+      updateGraphqlData(token);
+      console.log(token);
+      return token;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const verifyToken = createAsyncThunk<VerifyedTokenData, {token: Token}, ThunkConfig>(
+  "VERIFY_TOKEN",
+  async ({ token }, { rejectWithValue }) => {
+    try {
+      const query = `
+        mutation { 
+          verifyToken(token: "${token}") { payload }
+        }
+      `;
+      const data = await endpoint.request<VerifyedTokenData>(query, {}, headers);
       console.log(data);
       return data;
     } catch (err) {
@@ -54,23 +81,63 @@ export const registerUser = createAsyncThunk<Token, {registerInput: RegisterInpu
   }
 );
 
-export const userSignup = createAsyncThunk<any, {signupInput: any}, ThunkConfig>(
-  "USER_SIGNUP",
-  async ({ signupInput }, { rejectWithValue }) => {
+
+export const tokenAuth = createAsyncThunk<TokenAuthOutput, {tokenAuthInput: TokenAuthInput}, ThunkConfig>(
+  "TOKEN_AUTH",
+  async ({ tokenAuthInput }, { rejectWithValue }) => {
     try {
       const query = `
         mutation { 
-          registerUser(
-            input: { 
-              username: "${signupInput.username}",
-              email: "${signupInput.email}",
-              password: "${signupInput.password}",
-              repeatPassword: "${signupInput.password}"
-            }) { profile { id username email } token } }
+          tokenAuth(
+            username: "${tokenAuthInput.username}",
+            password: "${tokenAuthInput.password}"
+          ) { payload, refreshExpiresIn, token }
+        } 
       `;
-      const data = await endpoint.request<SignupData>(query);
+      const data = await endpoint.request<TokenAuthOutput>(query, {}, headers);
       console.log(data);
       return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const saveKeys = createAsyncThunk<SaveKeysOutput, {saveKeysInput: SaveKeysInput}, ThunkConfig>(
+  "SAVE_KEYS",
+  async ({ saveKeysInput }, { rejectWithValue }) => {
+    try {
+      const query = `
+        mutation { 
+          saveKeys(
+            privateKey: "${saveKeysInput.privateKey}"
+            publicKey: "${saveKeysInput.publicKey}"
+            service: "${saveKeysInput.service}"
+          ) {success}
+        }
+      `;
+      const data = await endpoint.request<SaveKeysOutput>(query, {}, headers);
+      console.log(data);
+      return data;
+    } catch (err) {
+      return rejectWithValue(err);
+    }
+  }
+);
+
+export const syncPrivateKey = createAsyncThunk<SyncPrivateKeyOutput, {syncPrivateKeyInput: SyncPrivateKeyInput}, ThunkConfig>(
+  "SYNC_PRIVATE_KEY",
+  async ({ syncPrivateKeyInput }, { rejectWithValue }) => {
+    try {
+      const query = `
+        mutation {
+          syncPrivateKey(service: "${syncPrivateKeyInput.service}")
+          { success, privateKey }
+        }
+      `;
+      const token = await endpoint.request<SyncPrivateKeyOutput>(query, {}, headers);
+      console.log(token);
+      return token;
     } catch (err) {
       return rejectWithValue(err);
     }

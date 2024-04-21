@@ -75,7 +75,7 @@ FB: использовал eslint и prettier
 * Что было сделано (краткое описание основного функционала приложения)
 
 * Отчет о тестировании (описание тестирования конкретного функционала)
-
+h
 3. **Reviewer**
 
 **Обязательно сделать review-request** на [@lyaguxafrog](https://github.com/lyaguxafrog), если задача связана с Backend'ом или CI/CD, или [@talkingmachine](https://github.com/talkingmachine), если задача связана с Frontend'ом.

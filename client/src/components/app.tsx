@@ -1,10 +1,11 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { NotFoundPage } from './not-found';
 import { Footer } from './footer';
-import { Login } from './login';
 import { Keys } from './keyspage';
 import { Start } from './start';
 import { Register } from './register';
+import { Words } from './words';
+
 
 export function App ():JSX.Element {
   return (
@@ -24,8 +25,11 @@ export function App ():JSX.Element {
           path={'/register'}
           element={<Register/>}
         />
+        <Route
+          path={'/words'}
+          element={<Words/>}
+        />
       </Routes>
-
       </div>
       <Footer/>
     </BrowserRouter>  );

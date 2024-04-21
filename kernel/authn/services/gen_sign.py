@@ -5,11 +5,13 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.asymmetric import padding
 from cryptography.hazmat.primitives.serialization import load_pem_public_key
 
+
 from django.db.transaction import atomic
 
 from users.models import Profile
 from authn.models import Signature
 from cloud.models import PrivateKeys
+
 
 def gen_random_signature(length=16) -> str:
     """

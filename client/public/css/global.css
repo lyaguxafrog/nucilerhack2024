@@ -201,9 +201,17 @@ li:hover {
   height: 34px;
   width: 34px;
   margin-left: 15px;
-  margin-top: 21px;
+
   
 }
+.input {
+  background: none;
+  max-width: 54px;
+  border:none;
+  height: 20px;
+  color: #E7E7E7;
+ }
+ 
 
 .buttonRefr::after{
   content: "";
@@ -218,7 +226,26 @@ li:hover {
 }
 .register{
   display: flex;
-  text-align: center;
   flex-direction: column;
   align-items: center;
+}
+
+.buttonRegister::after{
+  content: 'register';
+=======
+  gap: 10px;
+  text-align: center;
+  margin-top: -100px;
+}
+.wordsRow{
+  align-items: center;
+  flex-wrap: wrap;
+  display: flex;
+  gap: 3px;
+  color: #CCD00A;
+  border: 2px solid #CCD00A;
+  padding: 0 20px;
+  margin-bottom: 15px;
+  height: 60px;
+
 }

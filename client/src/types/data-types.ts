@@ -33,6 +33,13 @@ export type SyncPrivateKeyOutput = {
   success: boolean;
   privateKey: string;
 }
+export type AllKeys = {
+  keys: {
+    id: string,
+    service: string
+  }[],
+  success: boolean 
+}
 
 export type Token = string;
 

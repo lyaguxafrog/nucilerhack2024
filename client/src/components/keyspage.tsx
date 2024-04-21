@@ -1,32 +1,35 @@
+import { useEffect } from "react";
+import { useAppDispatch, useAppSelector } from "../hooks/typed-wrappers";
+import { allKeys } from "../store/actions";
 
 export const Keys = () => {
-    return (
-      <section className="keys">
-        <h2 className="keysTitle" >keys</h2>
-        <div className="yellowLine"></div>
-        <ul className="keysTable"> 
+
+  const dispatch = useAppDispatch();
+  const keysData = useAppSelector((state) => state.keysData).keys;
+
+  useEffect(() => {
+    dispatch(allKeys());
+  }, []);
+
+  return (
+    <section className="keys">
+      <h2 className="keysTitle">keys</h2>
+      <div className="yellowLine"></div>
+      <ul className="keysTable">
+        {keysData ? keysData.map((key) => (
           <li>
-            service1asfdadfa
+            {key.service}
             <button className="removeButton">
               <img src="/img/close.svg" />
             </button>
           </li>
-          <li>service2
-            <button className="removeButton">
-              <img src="/img/close.svg" />
-            </button>
-          </li>
-          <li>service3
-            <button className="removeButton">
-              <img src="/img/close.svg" />
-            </button>
-          </li>
-        </ul>
-        <button className="addButton">
-          add key
-          <img src="/img/add.svg"/>
-        </button>
-        <div className="whiteLine"></div>
-      </section>
-    );
-  };
+        )) : false}
+      </ul>
+      <button className="addButton">
+        add key
+        <img src="/img/add.svg"/>
+      </button>
+      <div className="whiteLine"></div>
+    </section>
+  );
+};

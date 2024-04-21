@@ -1,17 +1,32 @@
 import { createSlice } from '@reduxjs/toolkit';
-
+import { allKeys, genSeed, setUsername } from '../actions';
 
 export const dataSlice = createSlice({
   name: 'DATA',
-  initialState: '',
+  initialState: {
+    username: '',
+    seed: '',
+    keysData: {
+      keys: [{
+        id: '',
+        service: ''
+      }],
+      success: false
+    },
+  },
   reducers: {
   },
   extraReducers(builder) {
     builder
-      // .addCase(getProductsList.fulfilled, (state, action) => { // getProductsList
-      //   state.productsList.data = action.payload;
-      //   state.productsList.status = Status.downloaded;
-      // })
+      .addCase(setUsername, (state, action) => {
+        state.username = action.payload;
+      })
+      .addCase(genSeed.fulfilled, (state, action) => {
+        state.seed = action.payload
+      })
+      .addCase(allKeys.fulfilled, (state, action) => {
+        state.keysData = action.payload
+      })
   },
 });
 

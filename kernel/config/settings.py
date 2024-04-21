@@ -24,6 +24,7 @@ INSTALLED_APPS = [
     # APPS:
     'users',
     'cloud',
+    'authn',
 
 ]
 

@@ -1,10 +1,9 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { dataInitialState } from '../../consts/global';
 
 
 export const dataSlice = createSlice({
   name: 'DATA',
-  initialState: dataInitialState,
+  initialState: '',
   reducers: {
   },
   extraReducers(builder) {

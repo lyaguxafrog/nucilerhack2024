@@ -4,6 +4,7 @@ import { NotFoundPage } from './not-found';
 import { Footer } from './footer';
 import { Login } from './login';
 import { Start } from './start';
+import { Keys } from './keyspage';
 
 export function App ():JSX.Element {
   return (
@@ -16,7 +17,7 @@ export function App ():JSX.Element {
         />
         <Route
           path={'/login'}
-          element={<Login/>}
+          element={<Keys/>}
         />
         <Route path={RouterPaths.notFound()} element={<NotFoundPage/>}/>
       </Routes>

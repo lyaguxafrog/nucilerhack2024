@@ -18,6 +18,17 @@ if [[ $1 = 'ssl' ]]; then
     exit 0
 fi
 
+if [[ $1 = 'build' ]]; then
+    docker-compose up -d --build webclient
+    docker exec ${PROJECT}_webclient_1 npm i
+    docker exec ${PROJECT}_webclient_1 npm run build
+    docker-compose down
+
+    cp -r client/dist kernel/weblient/
+    rm -rf client/dist/
+    exit 0
+fi
+
 docker-compose up -d --build nginx
 echo "Deployed with <3 by PBD"
 

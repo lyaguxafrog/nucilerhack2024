@@ -23,6 +23,14 @@ services:
     depends_on:
       - db
 
+
+  webclient:
+    user: node
+    build: ./client
+    volumes:
+      - './client:/workdir'
+    command: /bin/bash -c "while true; do echo faking deamon; sleep 60; done"
+
   nginx:
     image: staticfloat/nginx-certbot
     depends_on:

@@ -13,7 +13,7 @@ from graphql_jwt.decorators import login_required
 from cloud.models import PrivateKeys as PK
 from cloud.services import (get_keys as getk,
                             sync_private_key as sharek,
-                            get_all_keys)
+                            get_all_keys, delete_key)
 
 from users.models import Profile
 
@@ -102,9 +102,27 @@ class GetAllKeysMutation(graphene.Mutation):
         return GetAllKeysMutation(success=True, keys=keys)
 
 
+class DeleteKeyMutatuion(graphene.Mutation):
+    success = graphene.Boolean()
+
+    class Arguments:
+        service = graphene.String(required=True)
+
+    @login_required
+    def mutate(self, info, service):
+        user = info.context.user
+        profile = Profile.objects.get(user=user)
+
+        if delete_key(user=profile, service=service):
+            return GetAllKeysMutation(success=True)
+
+        else:
+            return GetAllKeysMutation(success=False)
+
 class Mutation(
     graphene.ObjectType
 ):
     save_keys = SaveKeysMutation.Field()
     sync_private_key = SyncPrivateKeyMutation.Field()
     all_keys = GetAllKeysMutation.Field()
+    delete_key = DeleteKeyMutatuion.Field()

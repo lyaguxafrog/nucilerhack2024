@@ -11,7 +11,10 @@ from graphql_jwt.decorators import login_required
 
 
 from cloud.models import PrivateKeys as PK
-from cloud.services import get_keys as getk, sync_private_key as sharek
+from cloud.services import (get_keys as getk,
+                            sync_private_key as sharek,
+                            get_all_keys)
+
 from users.models import Profile
 
 
@@ -22,9 +25,10 @@ class PrivateKeyNode(DjangoObjectType):
 
         only_fields = '__all__'
 
-    user_email = graphene.String
+    user_email = graphene.String()
 
     def resolve_user_email(self, info):
+
         profile = self.user
         return profile.user.email
 
@@ -49,9 +53,8 @@ class SaveKeysMutation(graphene.Mutation):
     def mutate(self, info, service, public_key, private_key):
         user = info.context.user
         profile = Profile.objects.get(user=user)
-        print(user)
-        print(profile)
         key = getk(profile, service, public_key, private_key)
+
         return SaveKeysMutation(success=True, key=key)
 
 
@@ -74,7 +77,7 @@ class SyncPrivateKeyMutation(graphene.Mutation):
     def mutate(self, info, service):
         user = info.context.user
         profile = Profile.objects.get(user=user)
-        print(user)
+
         try:
             private_key = sharek(profile, service)
             return SyncPrivateKeyMutation(success=True, private_key=private_key)
@@ -82,9 +85,26 @@ class SyncPrivateKeyMutation(graphene.Mutation):
             return SyncPrivateKeyMutation(success=False, private_key=None)
 
 
+class GetAllKeysMutation(graphene.Mutation):
+    class Arguments:
+        pass
+
+    keys = graphene.List(PrivateKeyNode)
+    success = graphene.Boolean()
+
+    @login_required
+    def mutate(self, info):
+        user = info.context.user
+        profile = Profile.objects.get(user=user)
+
+        keys = get_all_keys(profile)
+
+        return GetAllKeysMutation(success=True, keys=keys)
+
 
 class Mutation(
     graphene.ObjectType
 ):
     save_keys = SaveKeysMutation.Field()
     sync_private_key = SyncPrivateKeyMutation.Field()
+    all_keys = GetAllKeysMutation.Field()

@@ -47,3 +47,17 @@ def sync_private_key(user: Profile,
 
     except ObjectDoesNotExist:
         raise Exception("Приватный ключ не найден")
+
+
+def get_all_keys(user: Profile):
+    """
+    Сервис получения всех ключей пользователя
+
+    :param user: Профиль пользователя
+
+    :returns: Список ключей
+    """
+
+
+    keys = PrivateKeys.objects.select_related('user').filter(user=user)
+    return keys

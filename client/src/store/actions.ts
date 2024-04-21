@@ -28,7 +28,7 @@ export const genSeed = createAsyncThunk(
           genSeed
         }
       `;
-      const payload = await endpoint.request(query, {}, headers) as string;
+      const payload = await endpoint.request<string>(query, {}, headers);
       console.log(payload);
       return payload;
     } catch (err) {
@@ -94,7 +94,8 @@ export const tokenAuth = createAsyncThunk<TokenAuthOutput, {tokenAuthInput: Toke
         } 
       `;
       const data = await endpoint.request<TokenAuthOutput>(query, {}, headers);
-      console.log(data);
+      updateGraphqlData(data.token);
+      tokenGet(true);
       return data;
     } catch (err) {
       return rejectWithValue(err);
@@ -188,5 +189,6 @@ export const deleteKey = createAsyncThunk<{success: boolean}, {syncPrivateKeyInp
 );
 
 export const setUsername = createAction<string>('setUsername');
-export const setKeysData = createAction<AllKeys>('');
+export const setKeysData = createAction<AllKeys>('setKeysData');
+export const tokenGet = createAction<boolean>('tokenGet');
 

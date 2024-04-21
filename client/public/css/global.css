@@ -159,10 +159,10 @@ li:hover {
 }
 .registerTitle {
   font-size: 32px;
+  text-align: center;
   display: block;
   width: 50%;
   color: #E7E7E7;
-
 }
 
 .buttonOK{
@@ -201,8 +201,6 @@ li:hover {
   height: 34px;
   width: 34px;
   margin-left: 15px;
-
-  
 }
 .input {
   background: none;
@@ -212,7 +210,6 @@ li:hover {
   color: #E7E7E7;
  }
  
-
 .buttonRefr::after{
   content: "";
   margin-left: 7px;
@@ -232,10 +229,9 @@ li:hover {
 
 .buttonRegister::after{
   content: 'register';
-=======
+  position: absolute;
   gap: 10px;
   text-align: center;
-  margin-top: -100px;
 }
 .wordsRow{
   align-items: center;
@@ -247,5 +243,4 @@ li:hover {
   padding: 0 20px;
   margin-bottom: 15px;
   height: 60px;
-
 }

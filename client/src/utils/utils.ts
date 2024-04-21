@@ -1,28 +1,34 @@
-async function generateKeyPair() {
-  const algorithm = {
-      name: "ECDSA",
-      namedCurve: "P-256",
-  };
+const keys = await crypto.subtle.generateKey(
+    {
+      name: "RSASSA-PKCS1-v1_5",
+      hash: "SHA-256",     // SHA-1, SHA-256, SHA-384, or SHA-512
+      publicExponent: new Uint8Array([1, 0, 1]), // 0x03 or 0x010001
+      modulusLength: 2048, // 1024, 2048, or 4096
+    },
+    true,
+    ["sign", "verify"],
+  );
 
-  const keyPair = await window.crypto.subtle.generateKey(algorithm, true, ["sign", "verify"]);
-  const publicKey = await window.crypto.subtle.exportKey("spki", keyPair.publicKey);
-  const privateKey = await window.crypto.subtle.exportKey("pkcs8", keyPair.privateKey);
+console.log(keys)
 
-  return { publicKey, privateKey };
-}
+// Export public key
+const publicKeyExported = await crypto.subtle.exportKey("spki", keys.publicKey);
+const publicKeyString = arrayBufferToBase64(publicKeyExported);
 
-async function createRegistrationRequest(user_id, username, display_name) {
-  // Generate ECDSA key pair
-  const keyPair = await generateKeyPair();
+// Export private key
+const privateKeyExported = await crypto.subtle.exportKey("pkcs8", keys.privateKey);
+const privateKeyString = arrayBufferToBase64(privateKeyExported);
 
-  // Construct registration request object
-  const registrationRequest = {
-      user_id: user_id,
-      username: username,
-      display_name: display_name,
-      publicKey: keyPair.publicKey,
-      privateKey: keyPair.privateKey
-  };
+console.log("Public Key:", publicKeyString);
+console.log("Private Key:", privateKeyString);
 
-  return registrationRequest;
+// Function to convert array buffer to base64
+function arrayBufferToBase64(buffer) {
+  let binary = '';
+  const bytes = new Uint8Array(buffer);
+  const len = bytes.byteLength;
+  for (let i = 0; i < len; i++) {
+    binary += String.fromCharCode(bytes[i]);
+  }
+  return window.btoa(binary);
 }

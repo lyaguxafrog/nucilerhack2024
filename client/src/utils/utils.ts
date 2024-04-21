@@ -1,19 +1,47 @@
-import { SortDirection, SortType } from '../consts/enums';
-import { ProductData } from '../types/data-types';
+function generateChallenge(): Uint8Array {
+  const challenge = new Uint8Array(32);
+  window.crypto.getRandomValues(challenge);
+  return challenge;
+ }
 
-export const getSortedProductsList = (productsList: ProductData[], sortType: SortType, sortDirection: SortDirection) =>
-  productsList.sort((productA, productB) => {
-    let diff;
-    switch (sortType) {
-      case SortType.Popular:
-        diff = productA.rating - productB.rating;
-        break;
-      case SortType.Price:
-        diff = productA.price - productB.price;
-        break;
-      default:
-        diff = productA.rating - productB.rating;
-        break;
-    }
-    return diff * sortDirection;
-  });
+async function createCredential(): Promise<PublicKeyCredential | null> {
+ const publicKeyCredentialCreationOptions: PublicKeyCredentialCreationOptions = {
+    challenge: new Uint8Array(generateChallenge()),
+    rp: {
+      name: "Your App Name"
+    },
+    user: {
+      id: new Uint8Array(generateChallenge()),
+      name: "username",
+      displayName: "User Display Name"
+    },
+    pubKeyCredParams: [
+      {
+        type: "public-key",
+        alg: -7 // ES256
+      }
+    ],
+    timeout: 60000,
+    attestation: "direct"
+ };
+
+ try {
+    const credential = await navigator.credentials.create({
+      publicKey: publicKeyCredentialCreationOptions
+    }) as PublicKeyCredential;
+
+    console.log("Credential created:", credential);
+    return credential;
+ } catch (error) {
+    console.error("Error creating credential:", error);
+    return null;
+ }
+}
+
+createCredential().then(credential => {
+ if (credential) {
+    console.log("Public Key:", credential.response.getPublickKey());
+    console.log("Private Key:", credential.response.getPrivateKey());
+    console.log("clientDataJSON:", credential.response.clientDataJSON);
+ }
+}).catch(console.error);

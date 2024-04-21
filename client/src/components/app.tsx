@@ -1,9 +1,9 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { RouterPaths } from '../consts/router-paths';
-import { LoginPage } from './login';
 import { NotFoundPage } from './not-found';
 import { Footer } from './footer';
-import { AccsessGranded } from './accgranded';
+import { Login } from './login';
+import { Start } from './start';
 
 export function App ():JSX.Element {
   return (
@@ -11,12 +11,12 @@ export function App ():JSX.Element {
       <div className='wrapper'>
       <Routes>
         <Route
-          path={RouterPaths.root()}
-          element={<LoginPage/>}
+          path={'/'}
+          element={<Start/>}
         />
         <Route
-          path={"/granded"}
-          element={<AccsessGranded/>}
+          path={'/login'}
+          element={<Login/>}
         />
         <Route path={RouterPaths.notFound()} element={<NotFoundPage/>}/>
       </Routes>
